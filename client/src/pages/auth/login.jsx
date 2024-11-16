@@ -5,10 +5,16 @@ import { loginUser } from "@/store/auth-slice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const initialState = {
   email: "",
   password: "",
+};
+
+const shortcutUsers = {
+  admin: { email: "iter.mohammad01@gmail.com", password: "123" },
+  user: { email: "Samar@gmail.com", password: "123" },
 };
 
 function AuthLogin() {
@@ -23,6 +29,22 @@ function AuthLogin() {
       if (data?.payload?.success) {
         toast({
           title: data?.payload?.message,
+        });
+      } else {
+        toast({
+          title: data?.payload?.message,
+          variant: "destructive",
+        });
+      }
+    });
+  }
+
+  function handleShortcutLogin(userType) {
+    setFormData(shortcutUsers[userType]);
+    dispatch(loginUser(shortcutUsers[userType])).then((data) => {
+      if (data?.payload?.success) {
+        toast({
+          title: `Logged in as ${userType}`,
         });
       } else {
         toast({
@@ -56,6 +78,25 @@ function AuthLogin() {
         setFormData={setFormData}
         onSubmit={onSubmit}
       />
+      <div className="mt-4">
+        <p className="text-sm text-center mb-2">Quick access (for demo purposes):</p>
+        <div className="flex justify-center space-x-4">
+          <Button
+            onClick={() => handleShortcutLogin('admin')}
+            variant="outline"
+            className="w-1/2"
+          >
+            Login as Admin
+          </Button>
+          <Button
+            onClick={() => handleShortcutLogin('user')}
+            variant="outline"
+            className="w-1/2"
+          >
+            Login as User
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

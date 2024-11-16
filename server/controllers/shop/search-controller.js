@@ -10,7 +10,7 @@ const searchProducts = async (req, res) => {
       });
     }
 
-    const regEx = new RegExp(keyword, "i");
+    const regEx = new RegExp(keyword, "i");5
 
     const createSearchQuery = {
       $or: [
