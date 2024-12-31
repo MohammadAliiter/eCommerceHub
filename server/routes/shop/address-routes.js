@@ -8,7 +8,7 @@ const {
 } = require("../../controllers/shop/address-controller");
 
 const router = express.Router();
-
+// this is all routes
 router.post("/add", addAddress);
 router.get("/get/:userId", fetchAllAddress);
 router.delete("/delete/:userId/:addressId", deleteAddress);
